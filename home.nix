@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   home.username = "scutta";
@@ -12,6 +12,7 @@
     kitty
     nodejs
     gnomeExtensions.pop-shell
+    gnomeExtensions.tray-icons-reloaded
     pkgs.gnome3.gnome-tweaks
     mattermost-desktop
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
@@ -23,7 +24,19 @@
         sha256 = "sha256-Zax7MmGJtuV9AhbZ8URUMvbKnLdDSt+jl86V8DzZUuM=";
       };
     })
+    insomnia
+    aws-sam-cli
+    awscli2
+    ripgrep
+    yarn
   ];
+  lib.xdg.desktopEntries."filen.io" = {
+    name = "Filen.io";
+    exec = "filen.io";
+    terminal = false;
+    categories = [ "Application" ];
+  };
+
 
   fonts.fontconfig.enable = true;
 
@@ -60,11 +73,11 @@
 
   programs.fish = {
     enable = true;
-    shellInit = ''
-      alias nor = "sudo nixos-rebuild switch --flake /home/scutta/.config/home-manager#scutta";
+    functions = {
+      noe = '' cd /home/scutta/.config/home-manager && nvim '';
+      nor = '' sudo nixos-rebuild switch --flake /home/scutta/.config/home-manager#scutta '';
 
-      alias noe "cd /home/scutta/.config/home-manager &&  nvim";
-    '';
+    };
   };
 
   programs.git = {
