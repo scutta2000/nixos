@@ -14,8 +14,15 @@
     gnomeExtensions.pop-shell
     pkgs.gnome3.gnome-tweaks
     mattermost-desktop
-    docker
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    obsidian
+    (appimageTools.wrapType2 {
+      name = "filen.io";
+      src = fetchurl {
+        url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage";
+        sha256 = "sha256-Zax7MmGJtuV9AhbZ8URUMvbKnLdDSt+jl86V8DzZUuM=";
+      };
+    })
   ];
 
   fonts.fontconfig.enable = true;
@@ -45,12 +52,18 @@
       color15 = "#ebedf2";
       selection_foreground = "#1b1d22";
     };
+    keybindings = {
+      "ctrl+shift+n" = "new_os_window_with_cwd";
+      "ctrl+shift+t" = "new_tab_with_cwd";
+    };
   };
 
   programs.fish = {
     enable = true;
     shellInit = ''
-      alias nor="sudo nixos-rebuild switch --flake .#scutta"
+      alias nor = "sudo nixos-rebuild switch --flake /home/scutta/.config/home-manager#scutta";
+
+      alias noe "cd /home/scutta/.config/home-manager &&  nvim";
     '';
   };
 

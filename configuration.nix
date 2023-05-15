@@ -85,7 +85,7 @@
   users.users.scutta = {
     isNormalUser = true;
     description = "Pietro Scuttari";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
       firefox
       vim
@@ -95,6 +95,8 @@
     #  thunderbird
     ];
   };
+
+  virtualisation.docker.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
