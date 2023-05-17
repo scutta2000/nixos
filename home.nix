@@ -29,7 +29,23 @@
     awscli2
     ripgrep
     yarn
+    htop
+    nodePackages.prettier
+    flameshot
+    xdg-desktop-portal-gnome
+    xdg-desktop-portal
+    beekeeper-studio
+    starship
+    any-nix-shell
+    (appimageTools.wrapType2 {
+      name = "RedisInsight";
+      src = fetchurl {
+        url = "https://download.redisinsight.redis.com/latest/RedisInsight-v2-linux-x86_64.AppImage";
+        sha256 = "sha256-beOA2PwkolYak95CLwdjFVmYrl0h8p1/7RaXaKUnOsE=";
+      };
+    })
   ];
+
   lib.xdg.desktopEntries."filen.io" = {
     name = "Filen.io";
     exec = "filen.io";
@@ -37,8 +53,13 @@
     categories = [ "Application" ];
   };
 
-
   fonts.fontconfig.enable = true;
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  programs.hyprland.enable = true;
 
   programs.kitty = {
     enable = true;
@@ -76,8 +97,11 @@
     functions = {
       noe = '' cd /home/scutta/.config/home-manager && nvim '';
       nor = '' sudo nixos-rebuild switch --flake /home/scutta/.config/home-manager#scutta '';
-
     };
+    shellInit = ''
+      any-nix-shell fish --info-right | source
+      set EDITOR nvim
+    '';
   };
 
   programs.git = {
