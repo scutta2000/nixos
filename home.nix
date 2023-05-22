@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, home-manager, ... }:
 
 {
   home.username = "scutta";
@@ -12,7 +12,7 @@
     kitty
     nodejs
     gnomeExtensions.pop-shell
-    gnomeExtensions.tray-icons-reloaded
+    gnomeExtensions.appindicator
     pkgs.gnome3.gnome-tweaks
     mattermost-desktop
     (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
@@ -44,6 +44,9 @@
         sha256 = "sha256-beOA2PwkolYak95CLwdjFVmYrl0h8p1/7RaXaKUnOsE=";
       };
     })
+    openvpn
+    cargo
+    chromium
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
@@ -58,8 +61,6 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
-  programs.hyprland.enable = true;
 
   programs.kitty = {
     enable = true;
@@ -85,6 +86,7 @@
       color7 = "#e6e8ee";
       color15 = "#ebedf2";
       selection_foreground = "#1b1d22";
+      hide_window_decorations = "yes";
     };
     keybindings = {
       "ctrl+shift+n" = "new_os_window_with_cwd";
@@ -95,12 +97,13 @@
   programs.fish = {
     enable = true;
     functions = {
-      noe = '' cd /home/scutta/.config/home-manager && nvim '';
-      nor = '' sudo nixos-rebuild switch --flake /home/scutta/.config/home-manager#scutta '';
+      noe = '' cd ~/.config/home-manager && nvim '';
+      nor = '' sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
     };
     shellInit = ''
       any-nix-shell fish --info-right | source
       set EDITOR nvim
+      set NIXPKGS_ALLOW_UNFREE 1
     '';
   };
 

@@ -42,6 +42,8 @@
     LC_TELEPHONE = "it_IT.UTF-8";
     LC_TIME = "it_IT.UTF-8";
   };
+  
+  programs.hyprland.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -140,6 +142,15 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+  };
+
+  systemd.user.services."filen.io" = {
+    description = "Start filen.io at startup";
+    serviceConfig.PassEnvironment = "DISPLAY";
+    script = ''
+      filen.io
+    '';
+    wantedBy = [ "multi-user.target" ]; # starts after login
   };
 }
 
