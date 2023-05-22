@@ -47,6 +47,7 @@
     openvpn
     cargo
     chromium
+    inetutils 
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
