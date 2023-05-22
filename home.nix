@@ -98,7 +98,7 @@
   programs.fish = {
     enable = true;
     functions = {
-      noe = '' cd ~/.config/home-manager && nvim '';
+      noe = '' cd ~/.config/home-manager && nvim home.nix '';
       nor = '' sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
       "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
     };
