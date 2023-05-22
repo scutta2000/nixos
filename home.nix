@@ -99,6 +99,7 @@
     functions = {
       noe = '' cd ~/.config/home-manager && nvim '';
       nor = '' sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
+      "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
     };
     shellInit = ''
       any-nix-shell fish --info-right | source
