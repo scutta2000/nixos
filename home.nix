@@ -47,7 +47,7 @@
     openvpn
     cargo
     chromium
-    inetutils 
+    inetutils
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
@@ -65,6 +65,7 @@
 
   programs.kitty = {
     enable = true;
+    shellIntegration.enableFishIntegration = true;
     settings = {
       background = "#1b1d22";
       foreground = "#e6e8ee";
