@@ -48,6 +48,10 @@
     cargo
     chromium
     inetutils
+    lsof
+    btop
+    vscode
+    dmidecode
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
