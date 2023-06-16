@@ -31,6 +31,8 @@
     yarn
     htop
     nodePackages.prettier
+    nodePackages.typescript-language-server
+    nodePackages.eslint
     flameshot
     xdg-desktop-portal-gnome
     xdg-desktop-portal
@@ -63,6 +65,8 @@
     wpsoffice
     bat
     unzip
+    nil
+    lua-language-server
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
