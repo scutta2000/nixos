@@ -52,6 +52,17 @@
     btop
     vscode
     dmidecode
+    cudaPackages_12.cudatoolkit
+    llvm
+    clang-tools
+    #llvmPackages_rocm.clang
+    pkgs.cachix
+    jetbrains.pycharm-community
+    python311
+    python311Packages.pip
+    wpsoffice
+    bat
+    unzip
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
@@ -111,6 +122,7 @@
       any-nix-shell fish --info-right | source
       set EDITOR nvim
       set NIXPKGS_ALLOW_UNFREE 1
+      set CUDA_PATH ${pkgs.cudaPackages_12.cudatoolkit}
     '';
   };
 
