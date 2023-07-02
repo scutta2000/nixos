@@ -67,6 +67,9 @@
     unzip
     nil
     lua-language-server
+    qt4
+    gnumake
+    nodePackages.pnpm
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
