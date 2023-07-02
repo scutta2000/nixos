@@ -33,6 +33,7 @@
     nodePackages.prettier
     nodePackages.typescript-language-server
     nodePackages.eslint
+    nodePackages.vscode-langservers-extracted
     flameshot
     xdg-desktop-portal-gnome
     xdg-desktop-portal
