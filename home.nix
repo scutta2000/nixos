@@ -71,6 +71,7 @@
     qt4
     gnumake
     nodePackages.pnpm
+    parallel
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
@@ -125,6 +126,8 @@
       noe = '' cd ~/.config/home-manager && nvim home.nix '';
       nor = '' sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
       "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
+      "clear-port" = '' sudo lsof -i :$argv[1] | tee /dev/tty | awk '(NR>1) {print $2}' | xargs sudo kill -9 '';
+
     };
     shellInit = ''
       any-nix-shell fish --info-right | source
