@@ -72,6 +72,7 @@
     gnumake
     nodePackages.pnpm
     parallel
+    skypeforlinux
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
