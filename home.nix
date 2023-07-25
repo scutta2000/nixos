@@ -5,12 +5,20 @@
   home.homeDirectory = "/home/scutta";
   home.stateVersion = "22.11";
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs; lib.lists.flatten [
     xclip
     gcc
     neovim
     kitty
     nodejs
+    (with nodePackages; [
+      prettier
+      typescript-language-server
+      eslint
+      vscode-langservers-extracted
+      pnpm
+    ])
+    nodePackages."@tailwindcss/language-server"
     gnomeExtensions.pop-shell
     gnomeExtensions.appindicator
     pkgs.gnome3.gnome-tweaks
@@ -30,10 +38,6 @@
     ripgrep
     yarn
     htop
-    nodePackages.prettier
-    nodePackages.typescript-language-server
-    nodePackages.eslint
-    nodePackages.vscode-langservers-extracted
     flameshot
     xdg-desktop-portal-gnome
     xdg-desktop-portal
@@ -70,9 +74,10 @@
     lua-language-server
     qt4
     gnumake
-    nodePackages.pnpm
-    parallel
     skypeforlinux
+    parallel
+    ocaml
+    opam
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
