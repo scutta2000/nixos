@@ -76,8 +76,11 @@
     gnumake
     skypeforlinux
     parallel
-    ocaml
     opam
+    fzf
+    fd
+    qrcp
+    tree
   ];
 
   lib.xdg.desktopEntries."filen.io" = {
@@ -130,16 +133,22 @@
     enable = true;
     functions = {
       noe = '' cd ~/.config/home-manager && nvim home.nix '';
-      nor = '' sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
+      nor = ''
+      sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
       "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
-      "clear-port" = '' sudo lsof -i :$argv[1] | tee /dev/tty | awk '(NR>1) {print $2}' | xargs sudo kill -9 '';
-
+      "clear-port" = '' sudo lsof -i :$argv[1] | tee /dev/tty | awk '(NR>1) {print $2}' | xargs -p sudo kill -9 
+      '';
+      cdp = ''
+      cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark)
+      '';
     };
     shellInit = ''
       any-nix-shell fish --info-right | source
       set EDITOR nvim
       set NIXPKGS_ALLOW_UNFREE 1
       set CUDA_PATH ${pkgs.cudaPackages_12.cudatoolkit}
+
+      source /home/scutta/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
     '';
   };
 
