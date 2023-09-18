@@ -72,7 +72,6 @@
     unzip
     nil
     lua-language-server
-    qt4
     gnumake
     skypeforlinux
     parallel
