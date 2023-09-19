@@ -155,6 +155,12 @@
     enable = true;
     userName = "scutta";
     userEmail = "scuttari.pietro@gmail.com";
+    extraConfig = {
+      init.defaultBranch = "main";
+      push.autoSetupRemote = true;
+      pull.rebase = false;
+      core.autocrlf = "input";
+    };
   };
 }
 
