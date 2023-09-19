@@ -29,7 +29,7 @@
       name = "filen.io";
       src = fetchurl {
         url = "https://cdn.filen.io/desktop/release/filen_x86_64.AppImage";
-        sha256 = "sha256-Zax7MmGJtuV9AhbZ8URUMvbKnLdDSt+jl86V8DzZUuM=";
+        sha256 = "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=";
       };
     })
     insomnia
@@ -48,7 +48,7 @@
       name = "RedisInsight";
       src = fetchurl {
         url = "https://download.redisinsight.redis.com/latest/RedisInsight-v2-linux-x86_64.AppImage";
-        sha256 = "sha256-beOA2PwkolYak95CLwdjFVmYrl0h8p1/7RaXaKUnOsE=";
+        sha256 = "sha256-ptP2+Wk6Vf6uHbmqUNiWEogar4vyvaqVGEJA2rRWwvs=";
       };
     })
     openvpn
