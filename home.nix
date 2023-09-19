@@ -161,6 +161,12 @@
       pull.rebase = false;
       core.autocrlf = "input";
     };
+    delta = {
+      enable = true;
+      options = {
+        line-numbers = true;
+      };
+    };
   };
 }
 
