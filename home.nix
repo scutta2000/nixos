@@ -21,9 +21,9 @@
     nodePackages."@tailwindcss/language-server"
     gnomeExtensions.pop-shell
     gnomeExtensions.appindicator
-    pkgs.gnome3.gnome-tweaks
+    gnome3.gnome-tweaks
     mattermost-desktop
-    (pkgs.nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+    (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     obsidian
     (appimageTools.wrapType2 {
       name = "filen.io";
@@ -63,7 +63,7 @@
     llvm
     clang-tools
     #llvmPackages_rocm.clang
-    pkgs.cachix
+    cachix
     jetbrains.pycharm-community
     python311
     python311Packages.pip
@@ -80,14 +80,31 @@
     fd
     qrcp
     tree
+    nvtop
   ];
 
-  lib.xdg.desktopEntries."filen.io" = {
+  xdg.desktopEntries."filen.io" = {
     name = "Filen.io";
     exec = "filen.io";
     terminal = false;
     categories = [ "Application" ];
+    icon = pkgs.fetchurl {
+      url = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.A2pgLX_Xzioy5jR-tbMffwHaHa%26pid%3DApi&f=1&ipt=563f27a08889e1ca4ade04a26597ff020480edffb912feffef43258e1553a36f&ipo=images";
+      sha256 = "sha256-dTG8Dswj+YX2aOnZPHQH+UWasxMmF4Ju+i21PPl+fWo=";
+    };
   };
+  xdg.desktopEntries."RedisInsight" = {
+    name = "RedisInsight";
+    exec = "RedisInsight";
+    terminal = false;
+    categories = [ "Application" ];
+    icon = pkgs.fetchurl {
+      url = "http://thenewstack.io/wp-content/uploads/2015/03/redis-logo.png";
+      sha256 = "sha256-eVFiN8WpK+s6PXXBxudJM9+/sIY1STc3jheSaE757Us=";
+    };
+
+  };
+
 
   fonts.fontconfig.enable = true;
 
@@ -132,14 +149,11 @@
     enable = true;
     functions = {
       noe = '' cd ~/.config/home-manager && nvim home.nix '';
-      nor = ''
-      sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
+      nor = '' sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
       "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
       "clear-port" = '' sudo lsof -i :$argv[1] | tee /dev/tty | awk '(NR>1) {print $2}' | xargs -p sudo kill -9 
       '';
-      cdp = ''
-      cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark)
-      '';
+      cdp = '' cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark) '';
     };
     shellInit = ''
       any-nix-shell fish --info-right | source
