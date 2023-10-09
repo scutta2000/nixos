@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, ... }:
+{ pkgs, lib, ... }:
 
 {
   home.username = "scutta";
@@ -81,6 +81,13 @@
     qrcp
     tree
     nvtop
+    (appimageTools.wrapType2 {
+      name = "bruno";
+      src = fetchurl {
+        url = "https://github.com/usebruno/bruno/releases/download/v0.22.0/bruno_0.22.0_x86_64_linux.AppImage";
+        sha256 = "sha256-bQS6bIV6/v84aRjtBzz2kQ6ec79Ie606K5oXFuG+h70=";
+      };
+    })
   ];
 
   xdg.desktopEntries."filen.io" = {
@@ -103,6 +110,16 @@
       sha256 = "sha256-eVFiN8WpK+s6PXXBxudJM9+/sIY1STc3jheSaE757Us=";
     };
 
+  };
+  xdg.desktopEntries."Bruno" = {
+    name = "bruno";
+    exec = "bruno";
+    terminal = false;
+    categories = [ "Application" ];
+    icon = pkgs.fetchurl {
+      url = "https://github.com/usebruno/bruno/blob/main/assets/images/logo-transparent.png?raw=true";
+      sha256 = "sha256-A6h72gKkGnZgxoneKNyQZHLj7354tUYjEGi2IHGhvBU=";
+    };
   };
 
 
