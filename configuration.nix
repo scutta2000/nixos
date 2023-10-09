@@ -18,15 +18,28 @@
 
   boot.swraid.enable = false;
 
-  networking.hostName = "scutta"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking = {
+    hostName = "scutta"; # Define your hostname.
+    networkmanager.enable = true; # Enable networking
+    # wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+    # Configure network proxy if necessary
+    # proxy.default = "http://user:password@proxy:port/";
+    # proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+
+    firewall.checkReversePath = "loose";
+    # Open ports in the firewall.
+    # firewall.allowedTCPPorts = [ ... ];
+    # firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    # networking.firewall.enable = false;
+
+
+    # nameservers = [ "127.0.0.1" "::1" ];
+    # networkmanager.dns = "none";
+  };
+
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -128,14 +141,6 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  networking.firewall.checkReversePath = "loose";
-
 
   swapDevices = [ {
     device = "/var/lib/swapfile";
