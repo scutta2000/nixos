@@ -48,7 +48,7 @@
       name = "RedisInsight";
       src = fetchurl {
         url = "https://download.redisinsight.redis.com/latest/RedisInsight-v2-linux-x86_64.AppImage";
-        sha256 = "sha256-ptP2+Wk6Vf6uHbmqUNiWEogar4vyvaqVGEJA2rRWwvs=";
+        sha256 = "sha256-ZEp9gwRolIYA7CNV8KuAG9spqMLJSMKtXEV1AcpW6Tk=";
       };
     })
     openvpn
