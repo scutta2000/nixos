@@ -164,11 +164,12 @@
 
   systemd.user.services."filen.io" = {
     description = "Start filen.io at startup";
-    serviceConfig.PassEnvironment = "DISPLAY";
+    #serviceConfig.PassEnvironment = "DISPLAY";
     script = ''
       filen.io
     '';
-    wantedBy = [ "multi-user.target" ]; # starts after login
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
   };
 }
 
