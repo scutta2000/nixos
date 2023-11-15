@@ -62,7 +62,7 @@
     cudaPackages_12.cudatoolkit
     llvm
     clang-tools
-    #llvmPackages_rocm.clang
+#llvmPackages_rocm.clang
     cachix
     jetbrains.pycharm-community
     python311
@@ -84,10 +84,14 @@
     (appimageTools.wrapType2 {
       name = "bruno";
       src = fetchurl {
-        url = "https://github.com/usebruno/bruno/releases/download/v0.22.0/bruno_0.22.0_x86_64_linux.AppImage";
-        sha256 = "sha256-bQS6bIV6/v84aRjtBzz2kQ6ec79Ie606K5oXFuG+h70=";
+      url = "https://github.com/usebruno/bruno/releases/download/v0.22.0/bruno_0.22.0_x86_64_linux.AppImage";
+      sha256 = "sha256-bQS6bIV6/v84aRjtBzz2kQ6ec79Ie606K5oXFuG+h70=";
       };
     })
+    opera
+    torrential
+    vlc
+    mpv
   ];
 
   xdg.desktopEntries."filen.io" = {
