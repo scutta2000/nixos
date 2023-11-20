@@ -88,7 +88,7 @@
       sha256 = "sha256-bQS6bIV6/v84aRjtBzz2kQ6ec79Ie606K5oXFuG+h70=";
       };
     })
-    (opera.override {proprietaryCodecs = true;})
+    opera
     torrential
     vlc
     mpv
