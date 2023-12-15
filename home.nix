@@ -11,12 +11,14 @@
     neovim
     kitty
     nodejs
+    bun
     (with nodePackages; [
       prettier
       typescript-language-server
       eslint
       vscode-langservers-extracted
       pnpm
+      pyright
     ])
     nodePackages."@tailwindcss/language-server"
     gnomeExtensions.pop-shell
@@ -92,6 +94,9 @@
     torrential
     vlc
     mpv
+    remmina
+    xdg-desktop-portal
+    xdg-desktop-portal-gnome
   ];
 
   xdg.desktopEntries."filen.io" = {
