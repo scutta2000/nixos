@@ -59,7 +59,6 @@
     inetutils
     lsof
     btop
-    vscode
     dmidecode
     cudaPackages_12.cudatoolkit
     llvm
@@ -97,6 +96,8 @@
     remmina
     xdg-desktop-portal
     xdg-desktop-portal-gnome
+    jq
+    sshfs
   ];
 
   xdg.desktopEntries."filen.io" = {
@@ -142,6 +143,7 @@
     enable = true;
     shellIntegration.enableFishIntegration = true;
     settings = {
+      # Colors
       background = "#1b1d22";
       foreground = "#e6e8ee";
       cursor = "#f6f6ec";
@@ -163,6 +165,7 @@
       color7 = "#e6e8ee";
       color15 = "#ebedf2";
       selection_foreground = "#1b1d22";
+
       hide_window_decorations = "yes";
     };
     keybindings = {
