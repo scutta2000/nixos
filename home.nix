@@ -210,6 +210,7 @@
         line-numbers = true;
       };
     };
+    lfs.enable = true;
   };
 }
 
