@@ -182,7 +182,7 @@
       "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
       "clear-port" = '' sudo lsof -i :$argv[1] | tee /dev/tty | awk '(NR>1) {print $2}' | xargs -p sudo kill -9 
       '';
-      cdp = '' cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark) '';
+      cdp = '' cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark --query $argv[1]) '';
     };
     shellInit = ''
       any-nix-shell fish --info-right | source
