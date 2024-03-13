@@ -19,8 +19,8 @@
       vscode-langservers-extracted
       pnpm
       pyright
+      nodePackages."@tailwindcss/language-server"
     ])
-    nodePackages."@tailwindcss/language-server"
     gnomeExtensions.pop-shell
     gnomeExtensions.appindicator
     gnome3.gnome-tweaks
