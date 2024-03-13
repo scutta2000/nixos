@@ -24,7 +24,6 @@
     gnomeExtensions.pop-shell
     gnomeExtensions.appindicator
     gnome3.gnome-tweaks
-    mattermost-desktop
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     obsidian
     (appimageTools.wrapType2 {
@@ -50,7 +49,7 @@
       name = "RedisInsight";
       src = fetchurl {
         url = "https://download.redisinsight.redis.com/latest/RedisInsight-v2-linux-x86_64.AppImage";
-        sha256 = "sha256-ZEp9gwRolIYA7CNV8KuAG9spqMLJSMKtXEV1AcpW6Tk=";
+        sha256 = "sha256-faO/+XkRXGeYFneY4KkioHMwY7udiakdOKanC2Lm/tY=";
       };
     })
     openvpn
@@ -182,7 +181,9 @@
       "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
       "clear-port" = '' sudo lsof -i :$argv[1] | tee /dev/tty | awk '(NR>1) {print $2}' | xargs -p sudo kill -9 
       '';
-      cdp = '' cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark --query $argv[1]) '';
+      cdp = ''
+        cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark)
+      '';
     };
     shellInit = ''
       any-nix-shell fish --info-right | source
