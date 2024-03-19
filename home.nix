@@ -11,13 +11,11 @@
     neovim
     kitty
     nodejs
-    bun
     (with nodePackages; [
       prettier
       typescript-language-server
       eslint
       vscode-langservers-extracted
-      pnpm
       pyright
       nodePackages."@tailwindcss/language-server"
     ])
@@ -33,7 +31,6 @@
         sha256 = "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=";
       };
     })
-    insomnia
     aws-sam-cli
     awscli2
     ripgrep
@@ -43,7 +40,6 @@
     xdg-desktop-portal-gnome
     xdg-desktop-portal
     beekeeper-studio
-    starship
     any-nix-shell
     (appimageTools.wrapType2 {
       name = "RedisInsight";
@@ -53,16 +49,11 @@
       };
     })
     openvpn
-    cargo
     chromium
     inetutils
     lsof
     btop
-    dmidecode
-    cudaPackages_12.cudatoolkit
-    llvm
     clang-tools
-#llvmPackages_rocm.clang
     cachix
     jetbrains.pycharm-community
     python311
@@ -70,7 +61,7 @@
     wpsoffice
     bat
     unzip
-    nil
+    nil # nix language server
     lua-language-server
     gnumake
     skypeforlinux
@@ -91,7 +82,6 @@
     (opera.override {proprietaryCodecs = true;})
     torrential
     vlc
-    mpv
     remmina
     xdg-desktop-portal
     xdg-desktop-portal-gnome
@@ -186,7 +176,7 @@
       '';
     };
     shellInit = ''
-      any-nix-shell fish --info-right | source
+      # any-nix-shell fish --info-right | source
       set EDITOR nvim
       set NIXPKGS_ALLOW_UNFREE 1
       set CUDA_PATH ${pkgs.cudaPackages_12.cudatoolkit}
