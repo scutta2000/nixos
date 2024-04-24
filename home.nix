@@ -40,7 +40,6 @@
     xdg-desktop-portal-gnome
     xdg-desktop-portal
     beekeeper-studio
-    any-nix-shell
     (appimageTools.wrapType2 {
       name = "RedisInsight";
       src = fetchurl {
@@ -87,6 +86,7 @@
     xdg-desktop-portal-gnome
     jq
     sshfs
+    nh
   ];
 
   xdg.desktopEntries."filen.io" = {
@@ -156,6 +156,7 @@
       selection_foreground = "#1b1d22";
 
       hide_window_decorations = "yes";
+      enable_audio_bell = "no";
     };
     keybindings = {
       "ctrl+shift+n" = "new_os_window_with_cwd";
@@ -167,7 +168,7 @@
     enable = true;
     functions = {
       noe = '' cd ~/.config/home-manager && nvim home.nix '';
-      nor = '' sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
+      nor = '' nh os switch ~/.config/home-manager '';
       "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
       "clear-port" = '' sudo lsof -i :$argv[1] | tee /dev/tty | awk '(NR>1) {print $2}' | xargs -p sudo kill -9 
       '';
@@ -176,7 +177,6 @@
       '';
     };
     shellInit = ''
-      # any-nix-shell fish --info-right | source
       set EDITOR nvim
       set NIXPKGS_ALLOW_UNFREE 1
       set CUDA_PATH ${pkgs.cudaPackages_12.cudatoolkit}
