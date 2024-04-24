@@ -43,8 +43,8 @@
     (appimageTools.wrapType2 {
       name = "RedisInsight";
       src = fetchurl {
-        url = "https://download.redisinsight.redis.com/latest/RedisInsight-v2-linux-x86_64.AppImage";
-        sha256 = "sha256-faO/+XkRXGeYFneY4KkioHMwY7udiakdOKanC2Lm/tY=";
+        url = "https://download.redisinsight.redis.com/latest/RedisInsight-linux-x86_64.AppImage";
+        sha256 = "sha256-fXswWL3U3s4WZpfVWMyLdGrYHfNTQPnX81IkRqqdnO8=";
       };
     })
     openvpn
