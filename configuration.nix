@@ -32,10 +32,7 @@
   boot.swraid.enable = false;
 
   #Fix bad audio on Yoga 9 pro
-  boot.extraModprobeConfig = ''
-    options snd-sof-intel-hda-comon hda_model=auto
-  '';
-  # options snd-sof-intel-hda-comon hda_model=alc283-headset
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   networking = {
     hostName = "scutta"; # Define your hostname.
     networkmanager.enable = true; # Enable networking
