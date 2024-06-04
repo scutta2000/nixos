@@ -32,7 +32,7 @@
   boot.swraid.enable = false;
 
   #Fix bad audio on Yoga 9 pro
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   networking = {
     hostName = "scutta"; # Define your hostname.
     networkmanager.enable = true; # Enable networking
@@ -213,5 +213,7 @@
     wantedBy = [ "graphical-session.target" ];
     partOf = [ "graphical-session.target" ];
   };
+
+  programs.nix-ld.enable = true;
 }
 
