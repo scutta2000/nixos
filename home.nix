@@ -16,13 +16,12 @@
       typescript-language-server
       eslint
       vscode-langservers-extracted
-      pnpm
+      pyright
+      nodePackages."@tailwindcss/language-server"
     ])
-    nodePackages."@tailwindcss/language-server"
     gnomeExtensions.pop-shell
     gnomeExtensions.appindicator
     gnome3.gnome-tweaks
-    mattermost-desktop
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     obsidian
     (appimageTools.wrapType2 {
@@ -32,7 +31,6 @@
         sha256 = "sha256-5vkndT9V/81fUdzS+KTfAjPAGO0IJRx8QhNxBNG8nnU=";
       };
     })
-    insomnia
     aws-sam-cli
     awscli2
     ripgrep
@@ -42,27 +40,19 @@
     xdg-desktop-portal-gnome
     xdg-desktop-portal
     beekeeper-studio
-    starship
-    any-nix-shell
     (appimageTools.wrapType2 {
       name = "RedisInsight";
       src = fetchurl {
-        url = "https://download.redisinsight.redis.com/latest/RedisInsight-v2-linux-x86_64.AppImage";
-        sha256 = "sha256-ZEp9gwRolIYA7CNV8KuAG9spqMLJSMKtXEV1AcpW6Tk=";
+        url = "https://download.redisinsight.redis.com/latest/RedisInsight-linux-x86_64.AppImage";
+        sha256 = "sha256-fXswWL3U3s4WZpfVWMyLdGrYHfNTQPnX81IkRqqdnO8=";
       };
     })
     openvpn
-    cargo
     chromium
     inetutils
     lsof
     btop
-    vscode
-    dmidecode
-    cudaPackages_12.cudatoolkit
-    llvm
     clang-tools
-    #llvmPackages_rocm.clang
     cachix
     jetbrains.pycharm-community
     python311
@@ -70,7 +60,7 @@
     wpsoffice
     bat
     unzip
-    nil
+    nil # nix language server
     lua-language-server
     gnumake
     skypeforlinux
@@ -84,10 +74,19 @@
     (appimageTools.wrapType2 {
       name = "bruno";
       src = fetchurl {
-        url = "https://github.com/usebruno/bruno/releases/download/v0.22.0/bruno_0.22.0_x86_64_linux.AppImage";
-        sha256 = "sha256-bQS6bIV6/v84aRjtBzz2kQ6ec79Ie606K5oXFuG+h70=";
+      url = "https://github.com/usebruno/bruno/releases/download/v0.22.0/bruno_0.22.0_x86_64_linux.AppImage";
+      sha256 = "sha256-bQS6bIV6/v84aRjtBzz2kQ6ec79Ie606K5oXFuG+h70=";
       };
     })
+    (opera.override {proprietaryCodecs = true;})
+    torrential
+    vlc
+    remmina
+    xdg-desktop-portal
+    xdg-desktop-portal-gnome
+    jq
+    sshfs
+    nh
   ];
 
   xdg.desktopEntries."filen.io" = {
@@ -133,6 +132,7 @@
     enable = true;
     shellIntegration.enableFishIntegration = true;
     settings = {
+      # Colors
       background = "#1b1d22";
       foreground = "#e6e8ee";
       cursor = "#f6f6ec";
@@ -154,7 +154,9 @@
       color7 = "#e6e8ee";
       color15 = "#ebedf2";
       selection_foreground = "#1b1d22";
+
       hide_window_decorations = "yes";
+      enable_audio_bell = "no";
     };
     keybindings = {
       "ctrl+shift+n" = "new_os_window_with_cwd";
@@ -166,14 +168,15 @@
     enable = true;
     functions = {
       noe = '' cd ~/.config/home-manager && nvim home.nix '';
-      nor = '' sudo nixos-rebuild switch --flake ~/.config/home-manager#scutta '';
+      nor = '' nh os switch ~/.config/home-manager '';
       "openvpn-qmedia" = '' sudo openvpn ~/openvpn/pietro.scutta-config.ovpn'';
       "clear-port" = '' sudo lsof -i :$argv[1] | tee /dev/tty | awk '(NR>1) {print $2}' | xargs -p sudo kill -9 
       '';
-      cdp = '' cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark) '';
+      cdp = ''
+        cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark)
+      '';
     };
     shellInit = ''
-      any-nix-shell fish --info-right | source
       set EDITOR nvim
       set NIXPKGS_ALLOW_UNFREE 1
       set CUDA_PATH ${pkgs.cudaPackages_12.cudatoolkit}
@@ -198,6 +201,7 @@
         line-numbers = true;
       };
     };
+    lfs.enable = true;
   };
 }
 

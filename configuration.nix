@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports =
@@ -14,10 +14,25 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+  boot.loader.grub = {
+    timeoutStyle = "countdown";
+    extraEntries = ''
+        menuentry "Windows" --hotkey=w {
+          insmod part_gpt
+          insmod fat
+          insmod search_fs_uuid
+          insmod chain
+          search --fs-uuid --set=root $FS_UUID
+          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+        }
+    '';
+  };
+  # boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   boot.swraid.enable = false;
 
+  #Fix bad audio on Yoga 9 pro
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   networking = {
     hostName = "scutta"; # Define your hostname.
     networkmanager.enable = true; # Enable networking
@@ -59,7 +74,6 @@
     LC_TIME = "it_IT.UTF-8";
   };
 
-  programs.hyprland.enable = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -67,6 +81,8 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+
+  programs.hyprland.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -76,8 +92,29 @@
 
   #enable nvidia gpu
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.opengl.enable = true;
-  hardware.nvidia.modesetting.enable = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+
+    ];
+  };
+  hardware.nvidia = {
+    modesetting.enable = true;
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
+  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -122,6 +159,11 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
+    
+
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -164,11 +206,12 @@
 
   systemd.user.services."filen.io" = {
     description = "Start filen.io at startup";
-    serviceConfig.PassEnvironment = "DISPLAY";
+    #serviceConfig.PassEnvironment = "DISPLAY";
     script = ''
       filen.io
     '';
-    wantedBy = [ "multi-user.target" ]; # starts after login
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
   };
 }
 
