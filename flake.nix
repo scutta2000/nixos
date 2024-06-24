@@ -5,9 +5,20 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    ags.url = "github:Aylur/ags";
+    stylix.url = "github:danth/stylix";
+    anyrun.url = "github:anyrun-org/anyrun";
+    anyrun.inputs.nixpkgs.follows = "nixpkgs";
+    # Hyprspace.url = "github:KZDKM/Hyprspace";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
@@ -16,6 +27,13 @@
       nixosConfigurations = {
         scutta = lib.nixosSystem {
           inherit system;
+
+          # environment.systemPackages = with nixpkgs; [
+          #   anyrun.packages.${system}.anyrun
+          # ];
+          # environment.systemPackages = [ inputs.anyrun.packages.${system}.anyrun ];
+
+
           modules = [
             ./configuration.nix
             home-manager.nixosModules.home-manager
@@ -23,7 +41,9 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.scutta = import ./home.nix;
+              home-manager.extraSpecialArgs = { inherit inputs; };
             }
+            inputs.stylix.nixosModules.stylix
           ];
         };
       };

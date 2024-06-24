@@ -9,6 +9,7 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./modules/stylix.nix
     ];
 
   # Bootloader.
@@ -80,6 +81,7 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.displayManager.sddm.enable = true; 
   services.xserver.desktopManager.gnome.enable = true;
 
   programs.hyprland.enable = true;
@@ -156,6 +158,8 @@
   };
 
   virtualisation.docker.enable = true;
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -202,6 +206,17 @@
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
+    settings = {
+      builders-use-substitutes = true;
+      # extra substituters to add
+      extra-substituters = [
+          "https://anyrun.cachix.org"
+      ];
+
+      extra-trusted-public-keys = [
+          "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      ];
+    };
   };
 
   systemd.user.services."filen.io" = {

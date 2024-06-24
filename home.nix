@@ -1,6 +1,10 @@
 { pkgs, lib, ... }:
 
 {
+  imports = [
+    ./modules/hyprland.nix
+  ];
+
   home.username = "scutta";
   home.homeDirectory = "/home/scutta";
   home.stateVersion = "22.11";
@@ -36,9 +40,13 @@
     ripgrep
     yarn
     htop
-    flameshot
+    (flameshot.overrideAttrs (final: prev: {
+        cmakeFlags = prev.cmakeFlags ++ [(lib.cmakeBool "DUSE_WAYLAND_GRIM" true)];
+      })
+    )
     xdg-desktop-portal-gnome
     xdg-desktop-portal
+    xdg-desktop-portal-hyprland 
     beekeeper-studio
     (appimageTools.wrapType2 {
       name = "RedisInsight";
@@ -82,11 +90,10 @@
     torrential
     vlc
     remmina
-    xdg-desktop-portal
-    xdg-desktop-portal-gnome
     jq
     sshfs
     nh
+    eww
   ];
 
   xdg.desktopEntries."filen.io" = {
@@ -154,6 +161,8 @@
       color7 = "#e6e8ee";
       color15 = "#ebedf2";
       selection_foreground = "#1b1d22";
+      pointer_shape_when_grabbed = "arrow";
+      default_pointer_shape = "arrow";
 
       hide_window_decorations = "yes";
       enable_audio_bell = "no";
@@ -176,7 +185,7 @@
         cd ~/code/(FZF_DEFAULT_COMMAND="fd --type d --base-directory ~/code -d 3" fzf --color dark)
       '';
     };
-    shellInit = ''
+    shellInit = /*fish*/ ''
       set EDITOR nvim
       set NIXPKGS_ALLOW_UNFREE 1
       set CUDA_PATH ${pkgs.cudaPackages_12.cudatoolkit}
@@ -202,6 +211,13 @@
       };
     };
     lfs.enable = true;
+  };
+
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
+    };
   };
 }
 
