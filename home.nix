@@ -134,7 +134,7 @@
   home.sessionVariables = {
     EDITOR = "nvim";
   };
-
+  
   programs.kitty = {
     enable = true;
     shellIntegration.enableFishIntegration = true;
@@ -200,6 +200,7 @@
     userEmail = "scuttari.pietro@gmail.com";
     extraConfig = {
       init.defaultBranch = "main";
+      push.default = "current";
       push.autoSetupRemote = true;
       pull.rebase = false;
       core.autocrlf = "input";
