@@ -16,6 +16,7 @@
     grim
     slurp
     swappy
+    wl-clipboard
   ];
 
   wayland.windowManager.hyprland.enable = true;
@@ -35,6 +36,14 @@
       "$mod, J, movefocus, d"
       "$mod, K, movefocus, u"
       "$mod, L, movefocus, r"
+
+      "SUPER_SHIFT, H, movewindoworgroup, l"
+      "SUPER_SHIFT, J, movewindoworgroup, d"
+      "SUPER_SHIFT, K, movewindoworgroup, u"
+      "SUPER_SHIFT, L, movewindoworgroup, r"
+
+      "CONTROL_SUPER_SHIFT, J, changegroupactive, f"
+      "CONTROL_SUPER_SHIFT, K, changegroupactive, b"
 
       "SUPER_SHIFT, SPACE, exec, playerctl play-pause"
       "SUPER_SHIFT, N, exec, playerctl next"
@@ -61,8 +70,17 @@
       "$mod, mouse:272, movewindow"
       "$mod, mouse:273, resizewindow"
     ];
+    binde = [
+      "CONTROL_SUPER_SHIFT, H, resizeactive, 10 10"
+      "CONTROL_SUPER_SHIFT, L, resizeactive, -10 -10"
+    ];
     input = {
+      # kb_layout = "us_altgr-intl";
       kb_options = "caps:escape";
+      touchpad = {
+        natural_scroll = true;
+        clickfinger_behavior = true;
+      };
     };
     exec-once = [
       "swww init"
@@ -73,11 +91,16 @@
     ];
     gestures = {
       workspace_swipe = true;
+      workspace_swipe_use_r = true;
+      workspace_swipe_distance = 200;
+    };
+    misc = {
+      disable_hyprland_logo = true;
+      new_window_takes_over_fullscreen = 2;
     };
   };
   wayland.windowManager.hyprland.plugins = [
     # inputs.Hyprspace.packages.${pkgs.system}.Hyprspace
-    inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprexpo
   ];
 
   programs.ags = {
