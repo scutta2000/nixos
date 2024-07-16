@@ -89,14 +89,14 @@
   # Configure keymap in X11
   services.xserver = {
     layout = "us";
-    xkbVariant = "altgr-intl";
+    xkbVariant = "altgr-intl,";
+    xkbOptions = "caps:escape";
   };
 
   #enable nvidia gpu
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.opengl = {
     enable = true;
-    driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
       intel-media-driver # LIBVA_DRIVER_NAME=iHD
@@ -122,7 +122,6 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -153,7 +152,6 @@
       vim
       wget
       git
-      pkgs.gnome3.gnome-tweaks
     ];
   };
 

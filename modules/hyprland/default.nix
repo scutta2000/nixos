@@ -1,4 +1,3 @@
-
 { inputs, pkgs, lib, ... }:
 
 {
@@ -17,6 +16,9 @@
     slurp
     swappy
     wl-clipboard
+    blueman
+    networkmanagerapplet
+    socat
   ];
 
   wayland.windowManager.hyprland.enable = true;
@@ -73,10 +75,18 @@
     binde = [
       "CONTROL_SUPER_SHIFT, H, resizeactive, 10 10"
       "CONTROL_SUPER_SHIFT, L, resizeactive, -10 -10"
+
+      ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%+"
+      ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 10%-"
+      ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ", XF86MonBrightnessUp, exec, brightnessctl s 10%+"
+      ", XF86MonBrightnessDown, exec, brightnessctl s 10%-"
     ];
     input = {
       # kb_layout = "us_altgr-intl";
+      kb_layout = "us";
       kb_options = "caps:escape";
+      kb_variant = "altgr-intl";
       touchpad = {
         natural_scroll = true;
         clickfinger_behavior = true;
@@ -84,6 +94,8 @@
     };
     exec-once = [
       "swww init"
+      "filen.io"
+      "${toString ./.}/modules/handle-new-monitor.sh"
     ];
     exec = [
       "swww img ../wallpaper.jpg"
@@ -97,6 +109,9 @@
     misc = {
       disable_hyprland_logo = true;
       new_window_takes_over_fullscreen = 2;
+    };
+    dwindle = {
+      smart_split = true;
     };
   };
   wayland.windowManager.hyprland.plugins = [

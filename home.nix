@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ./modules/hyprland.nix
+    ./modules
   ];
 
   home.username = "scutta";
@@ -25,7 +25,7 @@
     ])
     gnomeExtensions.pop-shell
     gnomeExtensions.appindicator
-    gnome3.gnome-tweaks
+    gnome-tweaks
     (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
     obsidian
     (appimageTools.wrapType2 {
@@ -40,21 +40,12 @@
     ripgrep
     yarn
     htop
-    (flameshot.overrideAttrs (final: prev: {
-        cmakeFlags = prev.cmakeFlags ++ [(lib.cmakeBool "DUSE_WAYLAND_GRIM" true)];
-      })
-    )
+    flameshot
     xdg-desktop-portal-gnome
     xdg-desktop-portal
     xdg-desktop-portal-hyprland 
     beekeeper-studio
-    (appimageTools.wrapType2 {
-      name = "RedisInsight";
-      src = fetchurl {
-        url = "https://download.redisinsight.redis.com/latest/RedisInsight-linux-x86_64.AppImage";
-        sha256 = "sha256-fXswWL3U3s4WZpfVWMyLdGrYHfNTQPnX81IkRqqdnO8=";
-      };
-    })
+    # redisinsight
     openvpn
     chromium
     inetutils
@@ -79,13 +70,7 @@
     qrcp
     tree
     nvtop
-    (appimageTools.wrapType2 {
-      name = "bruno";
-      src = fetchurl {
-      url = "https://github.com/usebruno/bruno/releases/download/v0.22.0/bruno_0.22.0_x86_64_linux.AppImage";
-      sha256 = "sha256-bQS6bIV6/v84aRjtBzz2kQ6ec79Ie606K5oXFuG+h70=";
-      };
-    })
+    bruno
     (opera.override {proprietaryCodecs = true;})
     torrential
     vlc
@@ -106,29 +91,6 @@
       sha256 = "sha256-dTG8Dswj+YX2aOnZPHQH+UWasxMmF4Ju+i21PPl+fWo=";
     };
   };
-  xdg.desktopEntries."RedisInsight" = {
-    name = "RedisInsight";
-    exec = "RedisInsight";
-    terminal = false;
-    categories = [ "Application" ];
-    icon = pkgs.fetchurl {
-      url = "http://thenewstack.io/wp-content/uploads/2015/03/redis-logo.png";
-      sha256 = "sha256-eVFiN8WpK+s6PXXBxudJM9+/sIY1STc3jheSaE757Us=";
-    };
-
-  };
-  xdg.desktopEntries."Bruno" = {
-    name = "bruno";
-    exec = "bruno";
-    terminal = false;
-    categories = [ "Application" ];
-    icon = pkgs.fetchurl {
-      url = "https://github.com/usebruno/bruno/blob/main/assets/images/logo-transparent.png?raw=true";
-      sha256 = "sha256-A6h72gKkGnZgxoneKNyQZHLj7354tUYjEGi2IHGhvBU=";
-    };
-  };
-
-
   fonts.fontconfig.enable = true;
 
   home.sessionVariables = {
